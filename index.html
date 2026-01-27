@@ -154,17 +154,6 @@
 </main>
 
 <script>
-function toggleDatosBaja() {
-  const estado = document.getElementById("estado").value;
-  document.getElementById("datosBaja").style.display = estado === "baja" ? "block" : "none";
-}
-
-function mesesEntreFechas(inicio, fin) {
-  const i = new Date(inicio);
-  const f = new Date(fin);
-  return (f.getFullYear() - i.getFullYear()) * 12 + (f.getMonth() - i.getMonth());
-}
-
 function determinarTramite() {
   const estado = document.getElementById("estado").value;
   const resultado = document.getElementById("resultado");
@@ -174,7 +163,11 @@ function determinarTramite() {
   const afil = document.getElementById("afiliacion");
   const noGes = document.getElementById("noGestionable");
 
-  reaf.style.display = reac.style.display = afil.style.display = noGes.style.display = "none";
+  reaf.style.display =
+  reac.style.display =
+  afil.style.display =
+  noGes.style.display = "none";
+
   resultado.style.display = "block";
 
   if (!estado) {
@@ -182,14 +175,16 @@ function determinarTramite() {
     return;
   }
 
+  // 🟢 ACTIVO
   if (estado === "activo") {
     resultado.innerHTML = `
       <strong>Afiliado activo</strong><br>
-      ⚠️ Gestión administrativa. No se carga ficha comercial. Crear ticket.
+      ⚠️ Gestión administrativa. Crear ticket. No cargar ficha comercial.
     `;
     return;
   }
 
+  // 🔴 BAJA
   const fechaBaja = document.getElementById("fechaBaja").value;
   const edad = parseInt(document.getElementById("edad").value);
   const opcion = document.getElementById("opcionSSS").value;
@@ -201,30 +196,33 @@ function determinarTramite() {
 
   const mesesBaja = mesesEntreFechas(fechaBaja, new Date());
 
-  // REACTIVACIÓN: edad >=50 o mesesBaja <=6
+  // ❌ NO GESTIONABLE (regla clave)
+  if (opcion === "otra" && mesesBaja < 6 && edad < 50) {
+    resultado.innerHTML = `
+      <strong>Trámite no gestionable</strong><br>
+      ⚠️ Debe cumplir permanencia mínima en la obra social actual antes de solicitar traspaso.
+    `;
+    noGes.style.display = "block";
+    return;
+  }
+
+  // 🔄 REACTIVACIÓN
   if (edad >= 50 || mesesBaja <= 6) {
     resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
     reac.style.display = "block";
     return;
   }
 
-  // REAFILIACIÓN: SSS = Parque Salud
+  // 🔁 REAFILIACIÓN
   if (opcion === "parque") {
     resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
     reaf.style.display = "block";
     return;
   }
 
-  // TRASPASO / VENTA: SSS ≠ Parque Salud y mesesBaja >= 6
-  if (opcion === "otra" && mesesBaja >= 6) {
-    resultado.innerHTML = "<strong>Trámite identificado: AFILIACIÓN / VENTA</strong>";
-    afil.style.display = "block";
-    return;
-  }
-
-  // No gestionable: SSS ≠ Parque Salud y mesesBaja < 6
-  resultado.innerHTML = "<strong>Trámite no gestionable</strong>";
-  noGes.style.display = "block";
+  // 🟣 VENTA / TRASPASO
+  resultado.innerHTML = "<strong>Trámite identificado: VENTA / TRASPASO</strong>";
+  afil.style.display = "block";
 }
 </script>
 
