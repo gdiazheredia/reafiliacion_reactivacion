@@ -163,10 +163,26 @@
       <input type="number" id="edad" min="0" style="margin-top:6px; width:100px;">
     </label>
 
+    <div class="form-group">
+  <label class="section-title">¿Existe ficha cargada en Módulo Comercial?</label>
+
+  <div class="radio-group">
     <label>
-      <input type="checkbox" id="ficha">
-      Existe ficha cargada en Módulo Comercial
+      <input type="radio" name="existeFicha" value="si" />
+      Sí
     </label>
+
+    <label>
+      <input type="radio" name="existeFicha" value="no" />
+      No
+    </label>
+  </div>
+
+  <small class="helper-text">
+    Si no se puede verificar, seleccionar la opción que corresponda según la información disponible.
+  </small>
+      
+  </div>
   </div>
 
   <button class="btn" onclick="determinarTramite()">Identificar trámite</button>
