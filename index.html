@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guía Operativa · Identificación de trámite</title>
-  <link rel="icon" href="favicon.png" type="image/png">
-
+  <title>Guía operativa · Identificación de trámite</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -16,10 +14,7 @@
       padding: 16px;
     }
 
-    main {
-      max-width: 900px;
-      margin: auto;
-    }
+    main { max-width: 900px; margin: auto; }
 
     h1 { color: #3D57C7; }
     h2 { color: #005E5C; margin-top: 24px; }
@@ -32,16 +27,8 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    label {
-      display: block;
-      margin-bottom: 12px;
-    }
-
-    input, select {
-      margin-top: 6px;
-      padding: 6px;
-      font-family: 'Sora', sans-serif;
-    }
+    label { display: block; margin-bottom: 12px; }
+    input, select { margin-top: 6px; padding: 6px; font-family: 'Sora', sans-serif; }
 
     .btn {
       margin-top: 14px;
@@ -86,8 +73,9 @@
 
 <h1>Guía operativa | Afiliación · Reafiliación · Reactivación</h1>
 <p>Script paso a paso para Atención al Afiliado</p>
+
 <section class="card">
-  <h2>Identificación el trámite</h2>
+  <h2>Identificación del trámite</h2>
 
   <label>
     🟢 Estado del afiliado:
@@ -125,12 +113,11 @@
 <section id="resultado" class="resultado"></section>
 
 <!-- BLOQUES DE PROCESO -->
-
 <section id="reactivacion" class="card" style="display:none;">
   <h2>Proceso · Reactivación</h2>
   <div class="alerta">⚠️ Gestión administrativa. No se carga ficha comercial.</div>
   <ul>
-    <li>Generar ticket</li>
+    <li>Generar ticket administrativo</li>
     <li>Controlar motivo de baja</li>
     <li>Regularizar deuda si corresponde</li>
     <li>Solicitar documentación</li>
@@ -150,13 +137,18 @@
 </section>
 
 <section id="afiliacion" class="card" style="display:none;">
-  <h2>Proceso · Venta </h2>
+  <h2>Proceso · Venta / Traspaso</h2>
   <div class="alerta">⚠️ Gestión comercial estándar.</div>
   <ul>
     <li>Carga de ficha como venta</li>
-    <li>Verificar no activo</li>
+    <li>Verificar que no esté activo</li>
     <li>Control de deuda si fue ex afiliado</li>
   </ul>
+</section>
+
+<section id="noGestionable" class="card" style="display:none;">
+  <h2>Trámite no gestionable</h2>
+  <div class="alerta">⚠️ El afiliado debe cumplir permanencia mínima en la obra social actual.</div>
 </section>
 
 </main>
@@ -164,8 +156,7 @@
 <script>
 function toggleDatosBaja() {
   const estado = document.getElementById("estado").value;
-  document.getElementById("datosBaja").style.display =
-    estado === "baja" ? "block" : "none";
+  document.getElementById("datosBaja").style.display = estado === "baja" ? "block" : "none";
 }
 
 function mesesEntreFechas(inicio, fin) {
@@ -181,8 +172,9 @@ function determinarTramite() {
   const reaf = document.getElementById("reafiliacion");
   const reac = document.getElementById("reactivacion");
   const afil = document.getElementById("afiliacion");
+  const noGes = document.getElementById("noGestionable");
 
-  reaf.style.display = reac.style.display = afil.style.display = "none";
+  reaf.style.display = reac.style.display = afil.style.display = noGes.style.display = "none";
   resultado.style.display = "block";
 
   if (!estado) {
@@ -209,20 +201,30 @@ function determinarTramite() {
 
   const mesesBaja = mesesEntreFechas(fechaBaja, new Date());
 
+  // REACTIVACIÓN: edad >=50 o mesesBaja <=6
   if (edad >= 50 || mesesBaja <= 6) {
     resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
     reac.style.display = "block";
     return;
   }
 
+  // REAFILIACIÓN: SSS = Parque Salud
   if (opcion === "parque") {
     resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
     reaf.style.display = "block";
     return;
   }
 
-  resultado.innerHTML = "<strong>Trámite identificado: AFILIACIÓN (Venta)</strong>";
-  afil.style.display = "block";
+  // TRASPASO / VENTA: SSS ≠ Parque Salud y mesesBaja >= 6
+  if (opcion === "otra" && mesesBaja >= 6) {
+    resultado.innerHTML = "<strong>Trámite identificado: AFILIACIÓN / VENTA</strong>";
+    afil.style.display = "block";
+    return;
+  }
+
+  // No gestionable: SSS ≠ Parque Salud y mesesBaja < 6
+  resultado.innerHTML = "<strong>Trámite no gestionable</strong>";
+  noGes.style.display = "block";
 }
 </script>
 
