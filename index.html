@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>Script Atención – Reafiliación / Reactivación</title>
+  <title>Guía Operativa · Reafiliación y Reactivación</title>
 
   <!-- Google Font Sora -->
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --violeta: #3D57C7;
+      --violeta-oscuro: #3D57C7;
       --verde-claro: #ABC94A;
-      --lila: #C2ADFF;
+      --verde-claro-tenue: rgba(171, 201, 74, 0.18);
+      --lila-claro: #C2ADFF;
       --verde-oscuro: #005E5C;
-      --fondo: #F7F8FC;
+      --texto: #1f2937;
+      --gris: #6b7280;
+      --fondo: #f8fafc;
     }
 
     * {
@@ -26,92 +28,97 @@
       margin: 0;
       font-family: 'Sora', sans-serif;
       background: var(--fondo);
-      color: #222;
-      font-size: 14px;
-    }
-
-    header {
-      background: var(--violeta);
-      color: white;
-      padding: 16px;
-      text-align: center;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 700;
+      color: var(--texto);
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     main {
-      padding: 16px;
       max-width: 900px;
       margin: auto;
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: var(--violeta-oscuro);
+      margin-bottom: 8px;
     }
 
     h2 {
-      color: var(--violeta);
-      font-size: 17px;
-      margin-top: 24px;
-      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--verde-oscuro);
+      margin-top: 28px;
     }
 
     h3 {
-      font-size: 15px;
-      color: var(--verde-oscuro);
-      margin-top: 16px;
-      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+
+    p {
+      margin: 6px 0 12px;
     }
 
     .card {
       background: white;
-      padding: 16px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      padding: 16px;
       margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    label {
-      display: block;
+    .checklist label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
       margin-bottom: 10px;
       cursor: pointer;
     }
 
-    input[type="checkbox"] {
-      margin-right: 8px;
+    .checklist input {
+      margin-top: 3px;
     }
 
-    button {
-      background: var(--violeta);
+    .btn {
+      margin-top: 16px;
+      background: var(--violeta-oscuro);
       color: white;
       border: none;
-      padding: 12px 16px;
+      padding: 10px 16px;
       border-radius: 8px;
       font-family: 'Sora', sans-serif;
       font-weight: 700;
       cursor: pointer;
       width: 100%;
-      margin-top: 12px;
     }
 
-    button:hover {
+    .btn:hover {
       opacity: 0.9;
     }
 
     .resultado {
-      padding: 16px;
-      border-radius: 10px;
-      margin-top: 16px;
       display: none;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      background: var(--verde-claro-tenue);
+      border-left: 6px solid var(--verde-claro);
     }
 
-    .ok {
-      background: var(--verde-claro);
+    .resultado strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
     }
 
     .alerta {
-      background: #FFDADA;
-      color: #7A0000;
+      background: #fff7ed;
+      border-left: 5px solid #f59e0b;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 0.9rem;
     }
 
     ul {
@@ -119,128 +126,128 @@
     }
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    @media (min-width: 600px) {
+    @media (max-width: 600px) {
       body {
-        font-size: 15px;
+        font-size: 14px;
+      }
+
+      h1 {
+        font-size: 1.35rem;
       }
     }
   </style>
 </head>
-
 <body>
-
-<header>
-  <h1>Script de Atención – Reafiliación / Reactivación</h1>
-</header>
 
 <main>
 
+  <h1>Guía Operativa · Reafiliación y Reactivación</h1>
+  <p>Script paso a paso para Atención al Afiliado</p>
+
   <!-- PASO 1 -->
-  <div class="card">
-    <h2>Paso 1 · Condiciones iniciales</h2>
+  <section class="card">
+    <h2>Paso 1 · Checklist inicial</h2>
+    <p>Completá este checklist para identificar el tipo de trámite:</p>
 
-    <label><input type="checkbox" id="baja"> Tuvo baja previa</label>
-    <label><input type="checkbox" id="bajaMayor"> Baja mayor a 6 meses</label>
-    <label><input type="checkbox" id="deuda"> Presenta deuda</label>
-    <label><input type="checkbox" id="consumo"> Consumo menor o igual a 3</label>
-    <label><input type="checkbox" id="autorizacion"> Autorización del líder comercial</label>
+    <div class="checklist">
+      <label><input type="checkbox" id="ficha"> Existe ficha cargada por vendedor en Módulo Comercial</label>
+      <label><input type="checkbox" id="bajaMayor"> Baja mayor a 6 meses</label>
+      <label><input type="checkbox" id="ticket"> El afiliado solicita gestión administrativa</label>
+    </div>
 
-    <button onclick="determinarProceso()">Determinar trámite</button>
+    <button class="btn" onclick="determinarTramite()">Identificar trámite</button>
+  </section>
 
-    <div id="resultado" class="resultado"></div>
-  </div>
+  <!-- RESULTADO -->
+  <section id="resultado" class="resultado"></section>
 
-  <!-- REACTIVACIÓN -->
-  <div id="reactivacion" class="card" style="display:none;">
-    <h2>Proceso · Reactivación</h2>
+  <!-- REAFILIACIÓN -->
+  <section id="reafiliacion" class="card" style="display:none;">
+    <h2>Proceso · Reafiliación</h2>
 
-    <h3>Checklist</h3>
+    <div class="alerta">
+      ⚠️ Gestión <strong>comercial</strong>.  
+      <br>No generar ticket administrativo.
+    </div>
+
+    <h3>Control de Admisión</h3>
     <ul>
-      <li>Controlar datos personales completos</li>
-      <li>Verificar integrantes y beneficiarios</li>
-      <li>Controlar estado BAJA en sistema de socios</li>
-      <li>Validar deuda en cuenta corriente</li>
-      <li>Gestionar pago de mora si corresponde</li>
-      <li>Aplicar condonación solo con autorización</li>
-      <li>Avanzar a estado <strong>Cargada</strong></li>
+      <li>Datos personales completos</li>
+      <li>Integrantes declarados (beneficiario / negativa)</li>
+      <li>CODEM: verificar integrantes no declarados</li>
+      <li>Estado afiliado (nuevo / activo / baja)</li>
+      <li>Control de deuda si fue ex afiliado</li>
+      <li>Opción SSS y aportes</li>
+      <li>Tipo de afiliado (traspaso / prepago)</li>
+      <li>Datos del empleador: CUIT, fecha de ingreso  
+        <br><em>Si no existe, cargar en MP &gt; Archivos &gt; Empleadores</em>
+      </li>
+      <li>Cuota, aporte, descuentos y forma de pago</li>
     </ul>
 
-    <h3>Motivos de Requerida</h3>
+    <h3>Motivos de ficha “Requerida”</h3>
     <ul>
+      <li>Integrante en CODEM no declarado</li>
       <li>Falta documentación</li>
       <li>Falta recibo de sueldo</li>
       <li>Costos incorrectos</li>
-      <li>Débito automático inválido</li>
+      <li>Datos de débito incorrectos</li>
+      <li>Descuentos mal aplicados</li>
     </ul>
-  </div>
+  </section>
 
-  <!-- REAFILIACIÓN -->
-  <div id="reafiliacion" class="card" style="display:none;">
-    <h2>Proceso · Reafiliación</h2>
+  <!-- REACTIVACIÓN -->
+  <section id="reactivacion" class="card" style="display:none;">
+    <h2>Proceso · Reactivación</h2>
 
-    <h3>Checklist</h3>
+    <div class="alerta">
+      ⚠️ Gestión <strong>administrativa</strong>.  
+      <br>No cargar ficha en Módulo Comercial.
+    </div>
+
+    <h3>Pasos del trámite</h3>
     <ul>
-      <li>Control de datos personales completos</li>
-      <li>Validar CODEM (si hay integrante no declarado → Requerida)</li>
-      <li>Controlar deuda y consumo histórico</li>
-      <li>Confirmar autorización del líder comercial</li>
-      <li>Aplicar condonación según criterio</li>
-      <li>Verificar aportes y forma de pago</li>
-      <li>Avanzar a estado <strong>Cargada</strong></li>
+      <li>Generar ticket administrativo</li>
+      <li>Controlar motivo de baja</li>
+      <li>Verificar y regularizar deuda</li>
+      <li>Solicitar documentación correspondiente</li>
+      <li>Gestionar reactivación en sistema</li>
+      <li>Confirmar activación con el afiliado</li>
     </ul>
-
-    <h3>Motivos de Requerida</h3>
-    <ul>
-      <li>Integrante en CODEM no declarado</li>
-      <li>Falta documentación obligatoria</li>
-      <li>Descuentos incorrectos</li>
-      <li>Datos de empleador incompletos (CUIT / fecha inicio)</li>
-    </ul>
-  </div>
+  </section>
 
 </main>
 
 <script>
-  function determinarProceso() {
-    const baja = document.getElementById('baja').checked;
-    const bajaMayor = document.getElementById('bajaMayor').checked;
-    const deuda = document.getElementById('deuda').checked;
-    const consumo = document.getElementById('consumo').checked;
-    const autorizacion = document.getElementById('autorizacion').checked;
+  function determinarTramite() {
+    const ficha = document.getElementById('ficha').checked;
+    const ticket = document.getElementById('ticket').checked;
 
     const resultado = document.getElementById('resultado');
-    const reactivacion = document.getElementById('reactivacion');
     const reafiliacion = document.getElementById('reafiliacion');
+    const reactivacion = document.getElementById('reactivacion');
+
+    reafiliacion.style.display = 'none';
+    reactivacion.style.display = 'none';
 
     resultado.style.display = 'block';
-    reactivacion.style.display = 'none';
-    reafiliacion.style.display = 'none';
 
-    if (!baja) {
-      resultado.className = 'resultado alerta';
-      resultado.innerHTML = '❌ El afiliado no registra baja previa. No corresponde este script.';
-      return;
-    }
-
-    if (baja && !bajaMayor) {
-      resultado.className = 'resultado ok';
-      resultado.innerHTML = '✅ Trámite identificado: <strong>REACTIVACIÓN</strong>';
-      reactivacion.style.display = 'block';
-      return;
-    }
-
-    if (baja && bajaMayor && consumo && autorizacion) {
-      resultado.className = 'resultado ok';
-      resultado.innerHTML = '✅ Trámite identificado: <strong>REAFILIACIÓN</strong>';
+    if (ficha && !ticket) {
+      resultado.innerHTML = `
+        <strong>Trámite identificado: REAFILIACIÓN</strong>
+        Gestión comercial cargada por vendedor en Módulo Comercial.
+      `;
       reafiliacion.style.display = 'block';
-      return;
+    } else {
+      resultado.innerHTML = `
+        <strong>Trámite identificado: REACTIVACIÓN</strong>
+        Gestión administrativa que se tramita mediante ticket.
+      `;
+      reactivacion.style.display = 'block';
     }
-
-    resultado.className = 'resultado alerta';
-    resultado.innerHTML = '⚠️ El caso requiere revisión manual o autorización adicional.';
   }
 </script>
 
