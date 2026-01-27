@@ -150,14 +150,9 @@
   <!-- PASO 1 -->
  <section class="card">
   <h2>Paso 1 · Identificación del trámite</h2>
-  <p>Completá los datos para que el sistema determine el tipo de gestión:</p>
+  <p>Ingresá los datos objetivos para determinar el tipo de gestión:</p>
 
   <div class="checklist">
-    <label>
-      <input type="checkbox" id="ficha">
-      Existe ficha cargada por vendedor en Módulo Comercial
-    </label>
-
     <label>
       Fecha de baja del afiliado:
       <input type="date" id="fechaBaja" style="margin-top:6px;">
@@ -169,8 +164,8 @@
     </label>
 
     <label>
-      <input type="checkbox" id="ticket">
-      El afiliado solicita gestión administrativa
+      <input type="checkbox" id="ficha">
+      Existe ficha cargada en Módulo Comercial
     </label>
   </div>
 
@@ -250,7 +245,6 @@
 
   function determinarTramite() {
     const ficha = document.getElementById('ficha').checked;
-    const ticket = document.getElementById('ticket').checked;
     const fechaBaja = document.getElementById('fechaBaja').value;
     const edad = parseInt(document.getElementById('edad').value);
 
@@ -265,7 +259,7 @@
     if (!fechaBaja || isNaN(edad)) {
       resultado.innerHTML = `
         <strong>Faltan datos</strong>
-        Por favor, ingresá la fecha de baja y la edad del titular.
+        Ingresá la fecha de baja y la edad del titular para continuar.
       `;
       return;
     }
@@ -273,23 +267,27 @@
     const hoy = new Date().toISOString().split('T')[0];
     const mesesBaja = mesesEntreFechas(fechaBaja, hoy);
 
-    // Regla de negocio
-    const esReactivacion =
-      edad >= 50 || mesesBaja <= 6 || ticket;
+    const correspondeReactivacion = edad >= 50 || mesesBaja <= 6;
 
-    if (!esReactivacion && ficha) {
-      resultado.innerHTML = `
-        <strong>Trámite identificado: REAFILIACIÓN</strong>
-        Baja mayor a 6 meses y titular menor de 50 años.
-        <br>Gestión comercial (Módulo Comercial).
-      `;
-      reafiliacion.style.display = 'block';
-    } else {
+    if (correspondeReactivacion) {
       resultado.innerHTML = `
         <strong>Trámite identificado: REACTIVACIÓN</strong>
-        Gestión administrativa mediante ticket.
+        Gestión administrativa que se tramita mediante ticket.
+        <br><em>El afiliado no debe cargar ficha comercial.</em>
       `;
       reactivacion.style.display = 'block';
+    } else {
+      resultado.innerHTML = `
+        <strong>Trámite identificado: REAFILIACIÓN</strong>
+        Gestión comercial.
+        <br>
+        ${
+          ficha
+            ? 'La ficha puede continuar su curso en Módulo Comercial.'
+            : '<em>No existe ficha cargada. Se debe informar que corresponde Reafiliación y solicitar la carga de ficha en Módulo Comercial.</em>'
+        }
+      `;
+      reafiliacion.style.display = 'block';
     }
   }
 </script>
