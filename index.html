@@ -249,6 +249,22 @@
 </main>
 
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('input[name="existeFicha"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const valor = document.querySelector('input[name="existeFicha"]:checked').value;
+
+      document.getElementById('mensajeFichaSi').style.display =
+        valor === 'si' ? 'block' : 'none';
+
+      document.getElementById('mensajeFichaNo').style.display =
+        valor === 'no' ? 'block' : 'none';
+    });
+  });
+
+});
+  
   function mesesEntreFechas(fechaInicio, fechaFin) {
     const inicio = new Date(fechaInicio);
     const fin = new Date(fechaFin);
@@ -260,7 +276,8 @@
   }
 
   function determinarTramite() {
-    const ficha = document.getElementById('ficha').checked;
+    const fichaSeleccionada = document.querySelector('input[name="existeFicha"]:checked');
+    const ficha = fichaSeleccionada ? fichaSeleccionada.value === 'si' : null;
     const fechaBaja = document.getElementById('fechaBaja').value;
     const edad = parseInt(document.getElementById('edad').value);
 
@@ -277,6 +294,14 @@
         <strong>Faltan datos</strong>
         Ingresá la fecha de baja y la edad del titular para continuar.
       `;
+      return;
+
+    if (ficha === null) {
+      resultado.innerHTML = `
+      <strong>Falta información</strong><br>
+      Indicá si existe o no ficha cargada para continuar.
+     `;
+      resultado.style.display = 'block';
       return;
     }
 
