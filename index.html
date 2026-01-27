@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>REAFILIACIÓN - REACTIVACIÓN | Guía operativa</title>
+  <title>Proceso de Afiliación, Reafiliación y Reactivación | Guía operativa</title>
 
-  <!-- Google Font Sora -->
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -16,12 +15,7 @@
       --lila-claro: #C2ADFF;
       --verde-oscuro: #005E5C;
       --texto: #1f2937;
-      --gris: #6b7280;
       --fondo: #f8fafc;
-    }
-
-    * {
-      box-sizing: border-box;
     }
 
     body {
@@ -30,7 +24,6 @@
       background: var(--fondo);
       color: var(--texto);
       font-size: 15px;
-      line-height: 1.5;
     }
 
     main {
@@ -39,26 +32,8 @@
       padding: 16px;
     }
 
-    h1 {
-      font-size: 1.5rem;
-      color: var(--violeta-oscuro);
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      font-size: 1.15rem;
-      color: var(--verde-oscuro);
-      margin-top: 28px;
-    }
-
-    h3 {
-      font-size: 1rem;
-      margin-top: 20px;
-    }
-
-    p {
-      margin: 6px 0 12px;
-    }
+    h1 { color: var(--violeta-oscuro); }
+    h2 { color: var(--verde-oscuro); margin-top: 24px; }
 
     .card {
       background: white;
@@ -68,48 +43,13 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    .checklist label {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-
-    .checklist input {
-      margin-top: 3px;
-    }
-
-    .btn {
-      margin-top: 16px;
-      background: var(--violeta-oscuro);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-family: 'Sora', sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .btn:hover {
-      opacity: 0.9;
-    }
-
     .resultado {
       display: none;
-      border-radius: 12px;
       padding: 16px;
-      margin-bottom: 20px;
+      border-radius: 12px;
       background: var(--verde-claro-tenue);
       border-left: 6px solid var(--verde-claro);
-    }
-
-    .resultado strong {
-      display: block;
-      font-size: 1.05rem;
-      margin-bottom: 6px;
+      margin-bottom: 20px;
     }
 
     .alerta {
@@ -117,205 +57,122 @@
       border-left: 5px solid #f59e0b;
       padding: 12px;
       border-radius: 8px;
-      margin: 12px 0;
+      margin-bottom: 12px;
       font-size: 0.9rem;
     }
 
-    ul {
-      padding-left: 18px;
-    }
-
-    li {
-      margin-bottom: 6px;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        font-size: 14px;
-      }
-
-      h1 {
-        font-size: 1.35rem;
-      }
+    .btn {
+      background: var(--violeta-oscuro);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
     }
   </style>
 </head>
-<body>
 
+<body>
 <main>
 
-  <h1>REAFILIACIÓN - REACTIVACIÓN | Guía operativa</h1>
-  <p>Script paso a paso para Atención al Afiliado</p>
+<h1>REAFILIACIÓN - REACTIVACIÓN - AFILIACIÓN | Guía operativa</h1>
+<p>Script paso a paso para Atención al Afiliado</p>
 
-  <!-- PASO 1 -->
- <section class="card">
-  <h2>Identificación del trámite</h2>
-  <p>Ingresá los datos para determinar el tipo de gestión:</p>
+<section class="card">
+  <h2>Identificación del trámite</h2>  
+  <h3>Ingresá los datos para determinar el tipo de gestión:</h3>
 
-  <div class="checklist">
-    <label>
-      Fecha de baja del afiliado:
-      <input type="date" id="fechaBaja" style="margin-top:6px;">
-    </label>
+  <label>Fecha de baja:
+    <input type="date" id="fechaBaja">
+  </label><br><br>
 
-    <label>
-      Edad del titular:
-      <input type="number" id="edad" min="0" style="margin-top:6px; width:100px;">
-    </label>
+  <label>Edad del titular:
+    <input type="number" id="edad">
+  </label><br><br>
 
-    <div class="form-group">
-  <label class="section-title">¿Existe ficha cargada en Módulo Comercial?</label>
+  <p>¿Existe ficha cargada en Módulo Comercial?</p>
+  <label><input type="radio" name="ficha" value="si"> Sí</label>
+  <label><input type="radio" name="ficha" value="no"> No</label>
 
-  <div class="radio-group">
-    <label>
-      <input type="radio" name="existeFicha" value="si" />
-      Sí
-    </label>
+  <p style="margin-top:12px;">¿El afiliado está ACTIVO actualmente como titular o integrante?</p>
+  <label><input type="radio" name="activo" value="si"> Sí (titular o integrante)</label>
+  <label><input type="radio" name="activo" value="no"> No</label>
 
-    <label>
-      <input type="radio" name="existeFicha" value="no" />
-      No
-    </label>
-  </div>
-
-  <small class="helper-text">
-    Si no se puede verificar, seleccionar la opción que corresponda según la información disponible.
-  </small>
-      
-  </div>
-  </div>
-
+  <br><br>
   <button class="btn" onclick="determinarTramite()">Identificar trámite</button>
 </section>
 
-  <!-- RESULTADO -->
-  <section id="resultado" class="resultado"></section>
+<section id="resultado" class="resultado"></section>
 
-  <!-- REAFILIACIÓN -->
-  <section id="reafiliacion" class="card" style="display:none;">
-    <h2>Proceso · Reafiliación</h2>
+<section id="reafiliacion" class="card" style="display:none;">
+  <h2>Proceso · Reafiliación</h2>
+  <div class="alerta">Gestión comercial</div>
+</section>
 
-    <div class="alerta">
-      ⚠️ Gestión <strong>comercial</strong>.  
-      <br>No generar ticket administrativo.
-    </div>
+<section id="reactivacion" class="card" style="display:none;">
+  <h2>Proceso · Reactivación</h2>
+  <div class="alerta">Gestión administrativa</div>
+</section>
 
-    <h3>Control de Admisión</h3>
-    <ul>
-      <li>Datos personales completos</li>
-      <li>Integrantes declarados (beneficiario / negativa)</li>
-      <li>CODEM: verificar si existen integrantes no declarados</li>
-      <li>Verificar y regularizar deuda</li>
-      <li>Opción SSS y aportes</li>
-      <li>Tipo de afiliado (obra social / prepago)</li>
-      <li>Datos del empleador: CUIT, fecha de ingreso  
-        <br><em>Si no existe, cargar en MP &gt; Archivos &gt; Empleadores</em>
-      </li>
-      <li>Cuota, aporte, descuentos y forma de pago</li>
-    </ul>
-
-    <h3>Motivos de ficha “Requerida”</h3>
-    <ul>
-      <li>Integrante en CODEM no declarado</li>
-      <li>Falta documentación</li>
-      <li>Falta recibo de sueldo</li>
-      <li>Costos incorrectos</li>
-      <li>Datos de débito incorrectos</li>
-      <li>Descuentos mal aplicados</li>
-    </ul>
-  </section>
-
-  <!-- REACTIVACIÓN -->
-  <section id="reactivacion" class="card" style="display:none;">
-    <h2>Proceso · Reactivación</h2>
-
-    <div class="alerta">
-      ⚠️ Gestión <strong>administrativa</strong>.  
-      <br>No cargar ficha en Módulo Comercial.
-    </div>
-
-    <h3>Pasos del trámite</h3>
-    <ul>
-      <li>Generar ticket administrativo</li>
-      <li>Controlar motivo de baja</li>
-      <li>Verificar y regularizar deuda</li>
-      <li>Solicitar documentación correspondiente</li>
-      <li>Gestionar reactivación en sistema</li>
-      <li>Confirmar activación con el afiliado</li>
-    </ul>
-  </section>
+<section id="traspaso" class="card" style="display:none;">
+  <h2>Proceso · Traspaso (Venta)</h2>
+  <div class="alerta">
+    ⚠️ Aplica únicamente cuando el afiliado NO está activo.<br>
+    Si el afiliado está activo (titular o integrante), <strong>NO se considera traspaso</strong>.
+  </div>
+</section>
 
 </main>
 
 <script>
-  function mesesEntreFechas(fechaInicio, fechaFin) {
-    const inicio = new Date(fechaInicio);
-    const fin = new Date(fechaFin);
+function mesesEntreFechas(inicio, fin) {
+  const i = new Date(inicio);
+  const f = new Date(fin);
+  return (f.getFullYear() - i.getFullYear()) * 12 + (f.getMonth() - i.getMonth());
+}
 
-    let meses = (fin.getFullYear() - inicio.getFullYear()) * 12;
-    meses += fin.getMonth() - inicio.getMonth();
+function determinarTramite() {
+  const fechaBaja = fechaBajaInput.value;
+  const edad = parseInt(edadInput.value);
+  const ficha = document.querySelector('input[name="ficha"]:checked')?.value;
+  const activo = document.querySelector('input[name="activo"]:checked')?.value;
 
-    return meses;
+  const resultado = document.getElementById("resultado");
+  const reaf = document.getElementById("reafiliacion");
+  const reac = document.getElementById("reactivacion");
+  const tras = document.getElementById("traspaso");
+
+  reaf.style.display = reac.style.display = tras.style.display = "none";
+  resultado.style.display = "block";
+
+  if (!fechaBaja || isNaN(edad) || !ficha || !activo) {
+    resultado.innerHTML = "<strong>Faltan datos obligatorios.</strong>";
+    return;
   }
 
-  function determinarTramite() {
-    const fichaSeleccionada = document.querySelector('input[name="existeFicha"]:checked');
-    const ficha = fichaSeleccionada ? fichaSeleccionada.value === 'si' : null;
-
-    const fechaBaja = document.getElementById('fechaBaja').value;
-    const edad = parseInt(document.getElementById('edad').value);
-
-    const resultado = document.getElementById('resultado');
-    const reafiliacion = document.getElementById('reafiliacion');
-    const reactivacion = document.getElementById('reactivacion');
-
-    reafiliacion.style.display = 'none';
-    reactivacion.style.display = 'none';
-    resultado.style.display = 'block';
-
-    // VALIDACIÓN 1: ficha
-    if (ficha === null) {
-      resultado.innerHTML = `
-        <strong>Falta información</strong><br>
-        Indicá si existe o no ficha cargada en Módulo Comercial.
-      `;
-      return;
-    }
-
-    // VALIDACIÓN 2: datos básicos
-    if (!fechaBaja || isNaN(edad)) {
-      resultado.innerHTML = `
-        <strong>Faltan datos</strong><br>
-        Ingresá la fecha de baja y la edad del titular para continuar.
-      `;
-      return;
-    }
-
-    const hoy = new Date().toISOString().split('T')[0];
-    const mesesBaja = mesesEntreFechas(fechaBaja, hoy);
-
-    const correspondeReactivacion = edad >= 50 || mesesBaja <= 6;
-
-    if (correspondeReactivacion) {
-      resultado.innerHTML = `
-        <strong>Trámite identificado: REACTIVACIÓN</strong><br>
-        Gestión administrativa mediante ticket.<br>
-        <em>No corresponde carga de ficha comercial.</em>
-      `;
-      reactivacion.style.display = 'block';
-    } else {
-      resultado.innerHTML = `
-        <strong>Trámite identificado: REAFILIACIÓN</strong><br>
-        Gestión comercial.<br>
-        ${
-          ficha
-            ? 'La ficha puede continuar su curso en Módulo Comercial.'
-            : '<em>Corresponde reafiliación. Se debe solicitar la carga de ficha en Módulo Comercial.</em>'
-        }
-      `;
-      reafiliacion.style.display = 'block';
-    }
+  if (activo === "si") {
+    resultado.innerHTML = `
+      <strong>NO corresponde traspaso</strong><br>
+      El afiliado se encuentra activo (titular o integrante).
+    `;
+    return;
   }
+
+  const meses = mesesEntreFechas(fechaBaja, new Date());
+
+  if (edad >= 50 || meses <= 6) {
+    resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
+    reac.style.display = "block";
+  } else if (ficha === "si") {
+    resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
+    reaf.style.display = "block";
+  } else {
+    resultado.innerHTML = "<strong>Trámite identificado: TRASPASO (VENTA)</strong>";
+    tras.style.display = "block";
+  }
+}
 </script>
 
 </body>
