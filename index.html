@@ -249,22 +249,6 @@
 </main>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-
-  document.querySelectorAll('input[name="existeFicha"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      const valor = document.querySelector('input[name="existeFicha"]:checked').value;
-
-      document.getElementById('mensajeFichaSi').style.display =
-        valor === 'si' ? 'block' : 'none';
-
-      document.getElementById('mensajeFichaNo').style.display =
-        valor === 'no' ? 'block' : 'none';
-    });
-  });
-
-});
-  
   function mesesEntreFechas(fechaInicio, fechaFin) {
     const inicio = new Date(fechaInicio);
     const fin = new Date(fechaFin);
@@ -278,6 +262,7 @@
   function determinarTramite() {
     const fichaSeleccionada = document.querySelector('input[name="existeFicha"]:checked');
     const ficha = fichaSeleccionada ? fichaSeleccionada.value === 'si' : null;
+
     const fechaBaja = document.getElementById('fechaBaja').value;
     const edad = parseInt(document.getElementById('edad').value);
 
@@ -289,19 +274,21 @@
     reactivacion.style.display = 'none';
     resultado.style.display = 'block';
 
-    if (!fechaBaja || isNaN(edad)) {
-      resultado.innerHTML = `
-        <strong>Faltan datos</strong>
-        Ingresá la fecha de baja y la edad del titular para continuar.
-      `;
-      return;
-
+    // VALIDACIÓN 1: ficha
     if (ficha === null) {
       resultado.innerHTML = `
-      <strong>Falta información</strong><br>
-      Indicá si existe o no ficha cargada para continuar.
-     `;
-      resultado.style.display = 'block';
+        <strong>Falta información</strong><br>
+        Indicá si existe o no ficha cargada en Módulo Comercial.
+      `;
+      return;
+    }
+
+    // VALIDACIÓN 2: datos básicos
+    if (!fechaBaja || isNaN(edad)) {
+      resultado.innerHTML = `
+        <strong>Faltan datos</strong><br>
+        Ingresá la fecha de baja y la edad del titular para continuar.
+      `;
       return;
     }
 
@@ -312,20 +299,19 @@
 
     if (correspondeReactivacion) {
       resultado.innerHTML = `
-        <strong>Trámite identificado: REACTIVACIÓN</strong>
-        Gestión administrativa que se tramita mediante ticket.
-        <br><em>El afiliado no debe cargar ficha comercial.</em>
+        <strong>Trámite identificado: REACTIVACIÓN</strong><br>
+        Gestión administrativa mediante ticket.<br>
+        <em>No corresponde carga de ficha comercial.</em>
       `;
       reactivacion.style.display = 'block';
     } else {
       resultado.innerHTML = `
-        <strong>Trámite identificado: REAFILIACIÓN</strong>
-        Gestión comercial.
-        <br>
+        <strong>Trámite identificado: REAFILIACIÓN</strong><br>
+        Gestión comercial.<br>
         ${
           ficha
             ? 'La ficha puede continuar su curso en Módulo Comercial.'
-            : '<em>No existe ficha cargada. Se debe informar que corresponde Reafiliación y solicitar la carga de ficha en Módulo Comercial.</em>'
+            : '<em>No existe ficha cargada. Informar que corresponde Reafiliación y solicitar la carga en Módulo Comercial.</em>'
         }
       `;
       reafiliacion.style.display = 'block';
