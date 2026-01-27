@@ -1,244 +1,247 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Reactivación / Reafiliación – Control Operativo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Tipografía institucional -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Script Atención – Reafiliación / Reactivación</title>
+
+  <!-- Google Font Sora -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --violeta: #3D57C7;
+      --verde-claro: #ABC94A;
       --lila: #C2ADFF;
-      --verde-ok: #005E5C;
-      --verde-soft: #ABC94A;
-      --fondo: #f4f6f8;
-      --texto: #333;
+      --verde-oscuro: #005E5C;
+      --fondo: #F7F8FC;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
+      margin: 0;
       font-family: 'Sora', sans-serif;
       background: var(--fondo);
-      padding: 14px;
+      color: #222;
       font-size: 14px;
-      color: var(--texto);
+    }
+
+    header {
+      background: var(--violeta);
+      color: white;
+      padding: 16px;
+      text-align: center;
     }
 
     h1 {
+      margin: 0;
       font-size: 20px;
       font-weight: 700;
-      color: var(--violeta);
-      margin-bottom: 6px;
     }
 
-    .subtitulo {
-      font-size: 13px;
-      margin-bottom: 16px;
-      color: #555;
-    }
-
-    section {
-      background: #fff;
-      padding: 12px 14px;
-      margin-bottom: 12px;
-      border-radius: 10px;
-      border-left: 6px solid var(--lila);
-      box-shadow: 0 0 6px rgba(0,0,0,0.04);
+    main {
+      padding: 16px;
+      max-width: 900px;
+      margin: auto;
     }
 
     h2 {
-      font-size: 16px;
-      font-weight: 600;
       color: var(--violeta);
-      margin: 0 0 6px;
+      font-size: 17px;
+      margin-top: 24px;
+      font-weight: 700;
     }
 
-    p {
-      font-size: 13px;
-      margin: 6px 0 8px;
-      color: #444;
+    h3 {
+      font-size: 15px;
+      color: var(--verde-oscuro);
+      margin-top: 16px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
     }
 
     label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      margin: 6px 0;
+      display: block;
+      margin-bottom: 10px;
       cursor: pointer;
     }
 
-    input[type="radio"] {
-      transform: scale(1.2);
-      accent-color: var(--violeta);
+    input[type="checkbox"] {
+      margin-right: 8px;
     }
 
     button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
       background: var(--violeta);
-      color: #fff;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
       cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
     }
 
-    #resultado {
-      margin-top: 18px;
-      padding: 14px;
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      padding: 16px;
       border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
+      margin-top: 16px;
+      display: none;
     }
 
-    #resultado.ok {
-      background: #e6f3f2;
-      color: var(--verde-ok);
-      border-left: 6px solid var(--verde-soft);
+    .ok {
+      background: var(--verde-claro);
     }
 
-    #resultado.error {
-      background: #fbeaea;
-      color: #8a1f1f;
-      border-left: 6px solid #d9534f;
+    .alerta {
+      background: #FFDADA;
+      color: #7A0000;
     }
 
     ul {
-      margin-top: 8px;
       padding-left: 18px;
-      font-size: 13px;
-      font-weight: 400;
     }
 
-    @media (max-width: 480px) {
-      h1 { font-size: 18px; }
-      h2 { font-size: 15px; }
-      button { position: sticky; bottom: 10px; }
+    li {
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 600px) {
+      body {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<h1>Reactivación / Reafiliación</h1>
-<p class="subtitulo">
-  Script de control y atención.  
-  Seguir el orden. No avanzar si algún punto da error.
-</p>
+<header>
+  <h1>Script de Atención – Reafiliación / Reactivación</h1>
+</header>
 
-<section>
-  <h2>1. Clasificación del trámite</h2>
-  <p>
-    Reactivación: baja menor a 6 meses  
-    (afiliados ≥ 50 años siempre Reactivación)
-  </p>
-  <label><input type="radio" name="tipo" value="ok"> Reactivación / Reafiliación correcta</label>
-  <label><input type="radio" name="tipo" value="error"> Clasificación incorrecta</label>
-</section>
+<main>
 
-<section>
-  <h2>2. Tipo de opción</h2>
-  <p>Identificar si posee opción en Parque Salud u otra obra social</p>
-  <label><input type="radio" name="opcion" value="ok"> Opción identificada correctamente</label>
-  <label><input type="radio" name="opcion" value="error"> Opción no clara / incorrecta</label>
-</section>
+  <!-- PASO 1 -->
+  <div class="card">
+    <h2>Paso 1 · Condiciones iniciales</h2>
 
-<section>
-  <h2>3. Control administrativo</h2>
-  <p>
-    Titular: opción, aportes, trabajo en blanco  
-    Adherentes: negativa / beneficiario  
-    Motivo de baja regularizado
-  </p>
-  <label><input type="radio" name="admin" value="ok"> OK</label>
-  <label><input type="radio" name="admin" value="error"> Baja / deuda no regularizada</label>
-</section>
+    <label><input type="checkbox" id="baja"> Tuvo baja previa</label>
+    <label><input type="checkbox" id="bajaMayor"> Baja mayor a 6 meses</label>
+    <label><input type="checkbox" id="deuda"> Presenta deuda</label>
+    <label><input type="checkbox" id="consumo"> Consumo menor o igual a 3</label>
+    <label><input type="checkbox" id="autorizacion"> Autorización del líder comercial</label>
 
-<section>
-  <h2>4. Declaración jurada de salud</h2>
-  <p>
-    Consumo 0 a 4 sin crónicos → cotización inmediata  
-    Consumo 5 o declara algo → cotización diferida
-  </p>
-  <label><input type="radio" name="ddjj" value="ok"> DDJJ tomada correctamente</label>
-  <label><input type="radio" name="ddjj" value="error"> Declara algo / consumo 5</label>
-</section>
+    <button onclick="determinarProceso()">Determinar trámite</button>
 
-<section>
-  <h2>5. Documentación</h2>
-  <p>
-    Relación de dependencia: último recibo  
-    Monotributo: último ticket  
-    Grupo familiar completo
-  </p>
-  <label><input type="radio" name="docs" value="ok"> Completa</label>
-  <label><input type="radio" name="docs" value="error"> Incompleta</label>
-</section>
+    <div id="resultado" class="resultado"></div>
+  </div>
 
-<section>
-  <h2>6. Cotización y explicación</h2>
-  <p>
-    Plan, costo total, aporte estimado, cuota a pagar  
-    Carencias, auditoría y reglamento informado
-  </p>
-  <label><input type="radio" name="cotiza" value="ok"> Cotización informada correctamente</label>
-  <label><input type="radio" name="cotiza" value="error"> No se puede cotizar / queda en auditoría</label>
-</section>
+  <!-- REACTIVACIÓN -->
+  <div id="reactivacion" class="card" style="display:none;">
+    <h2>Proceso · Reactivación</h2>
 
-<section>
-  <h2>7. Checklist final y ticket</h2>
-  <p>
-    DDJJ (peso y talla), contacto actualizado, débito automático, adjuntos, clave fiscal o PDF si aplica
-  </p>
-  <label><input type="radio" name="ticket" value="ok"> Ticket completo</label>
-  <label><input type="radio" name="ticket" value="error"> Ticket incompleto</label>
-</section>
+    <h3>Checklist</h3>
+    <ul>
+      <li>Controlar datos personales completos</li>
+      <li>Verificar integrantes y beneficiarios</li>
+      <li>Controlar estado BAJA en sistema de socios</li>
+      <li>Validar deuda en cuenta corriente</li>
+      <li>Gestionar pago de mora si corresponde</li>
+      <li>Aplicar condonación solo con autorización</li>
+      <li>Avanzar a estado <strong>Cargada</strong></li>
+    </ul>
 
-<button onclick="evaluar()">Evaluar gestión</button>
+    <h3>Motivos de Requerida</h3>
+    <ul>
+      <li>Falta documentación</li>
+      <li>Falta recibo de sueldo</li>
+      <li>Costos incorrectos</li>
+      <li>Débito automático inválido</li>
+    </ul>
+  </div>
 
-<div id="resultado"></div>
+  <!-- REAFILIACIÓN -->
+  <div id="reafiliacion" class="card" style="display:none;">
+    <h2>Proceso · Reafiliación</h2>
+
+    <h3>Checklist</h3>
+    <ul>
+      <li>Control de datos personales completos</li>
+      <li>Validar CODEM (si hay integrante no declarado → Requerida)</li>
+      <li>Controlar deuda y consumo histórico</li>
+      <li>Confirmar autorización del líder comercial</li>
+      <li>Aplicar condonación según criterio</li>
+      <li>Verificar aportes y forma de pago</li>
+      <li>Avanzar a estado <strong>Cargada</strong></li>
+    </ul>
+
+    <h3>Motivos de Requerida</h3>
+    <ul>
+      <li>Integrante en CODEM no declarado</li>
+      <li>Falta documentación obligatoria</li>
+      <li>Descuentos incorrectos</li>
+      <li>Datos de empleador incompletos (CUIT / fecha inicio)</li>
+    </ul>
+  </div>
+
+</main>
 
 <script>
-function evaluar() {
-  const pasos = [
-    { n: "tipo", m: "Clasificación incorrecta del trámite" },
-    { n: "opcion", m: "Tipo de opción no identificado correctamente" },
-    { n: "admin", m: "Situación administrativa / deuda no regularizada" },
-    { n: "ddjj", m: "Declaración jurada con consumo 5 o declaración médica" },
-    { n: "docs", m: "Documentación incompleta" },
-    { n: "cotiza", m: "Cotización no emitida / queda en auditoría" },
-    { n: "ticket", m: "Checklist final o ticket incompleto" }
-  ];
+  function determinarProceso() {
+    const baja = document.getElementById('baja').checked;
+    const bajaMayor = document.getElementById('bajaMayor').checked;
+    const deuda = document.getElementById('deuda').checked;
+    const consumo = document.getElementById('consumo').checked;
+    const autorizacion = document.getElementById('autorizacion').checked;
 
-  const errores = [];
-  for (const p of pasos) {
-    const v = document.querySelector(`input[name="${p.n}"]:checked`);
-    if (!v) {
-      alert("⚠️ Debes completar todos los pasos.");
+    const resultado = document.getElementById('resultado');
+    const reactivacion = document.getElementById('reactivacion');
+    const reafiliacion = document.getElementById('reafiliacion');
+
+    resultado.style.display = 'block';
+    reactivacion.style.display = 'none';
+    reafiliacion.style.display = 'none';
+
+    if (!baja) {
+      resultado.className = 'resultado alerta';
+      resultado.innerHTML = '❌ El afiliado no registra baja previa. No corresponde este script.';
       return;
     }
-    if (v.value === "error") errores.push(p.m);
-  }
 
-  const r = document.getElementById("resultado");
+    if (baja && !bajaMayor) {
+      resultado.className = 'resultado ok';
+      resultado.innerHTML = '✅ Trámite identificado: <strong>REACTIVACIÓN</strong>';
+      reactivacion.style.display = 'block';
+      return;
+    }
 
-  if (errores.length === 0) {
-    r.className = "ok";
-    r.innerHTML = "✔ GESTIÓN OK<br>Puede continuar con la activación.";
-  } else {
-    r.className = "error";
-    r.innerHTML = "❌ NO SE PUEDE FINALIZAR<br><br>Motivos:<ul>" +
-      errores.map(e => `<li>${e}</li>`).join("") +
-      "</ul>";
+    if (baja && bajaMayor && consumo && autorizacion) {
+      resultado.className = 'resultado ok';
+      resultado.innerHTML = '✅ Trámite identificado: <strong>REAFILIACIÓN</strong>';
+      reafiliacion.style.display = 'block';
+      return;
+    }
+
+    resultado.className = 'resultado alerta';
+    resultado.innerHTML = '⚠️ El caso requiere revisión manual o autorización adicional.';
   }
-}
 </script>
 
 </body>
