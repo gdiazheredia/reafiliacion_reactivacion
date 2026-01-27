@@ -149,7 +149,7 @@
   </ul>
 </section>
 
-<section id="traspaso" class="card" style="display:none;">
+<section id="afiliacion" class="card" style="display:none;">
   <h2>Proceso · Venta </h2>
   <div class="alerta">⚠️ Gestión comercial estándar.</div>
   <ul>
@@ -180,9 +180,9 @@ function determinarTramite() {
 
   const reaf = document.getElementById("reafiliacion");
   const reac = document.getElementById("reactivacion");
-  const tras = document.getElementById("traspaso");
+  const afil = document.getElementById("afiliación");
 
-  reaf.style.display = reac.style.display = tras.style.display = "none";
+  reaf.style.display = reac.style.display = afil.style.display = "none";
   resultado.style.display = "block";
 
   if (!estado) {
@@ -222,7 +222,7 @@ function determinarTramite() {
   }
 
   resultado.innerHTML = "<strong>Trámite identificado: AFILIACIÓN (Venta)</strong>";
-  tras.style.display = "block";
+  afil.style.display = "block";
 }
 </script>
 
