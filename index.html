@@ -148,18 +148,34 @@
   <p>Script paso a paso para Atención al Afiliado</p>
 
   <!-- PASO 1 -->
-  <section class="card">
-    <h2>Paso 1 · Checklist inicial</h2>
-    <p>Completá este checklist para identificar el tipo de trámite:</p>
+ <section class="card">
+  <h2>Paso 1 · Identificación del trámite</h2>
+  <p>Completá los datos para que el sistema determine el tipo de gestión:</p>
 
-    <div class="checklist">
-      <label><input type="checkbox" id="ficha"> Existe ficha cargada por vendedor en Módulo Comercial</label>
-      <label><input type="checkbox" id="bajaMayor"> Baja mayor a 6 meses</label>
-      <label><input type="checkbox" id="ticket"> El afiliado solicita gestión administrativa</label>
-    </div>
+  <div class="checklist">
+    <label>
+      <input type="checkbox" id="ficha">
+      Existe ficha cargada por vendedor en Módulo Comercial
+    </label>
 
-    <button class="btn" onclick="determinarTramite()">Identificar trámite</button>
-  </section>
+    <label>
+      Fecha de baja del afiliado:
+      <input type="date" id="fechaBaja" style="margin-top:6px;">
+    </label>
+
+    <label>
+      Edad del titular:
+      <input type="number" id="edad" min="0" style="margin-top:6px; width:100px;">
+    </label>
+
+    <label>
+      <input type="checkbox" id="ticket">
+      El afiliado solicita gestión administrativa
+    </label>
+  </div>
+
+  <button class="btn" onclick="determinarTramite()">Identificar trámite</button>
+</section>
 
   <!-- RESULTADO -->
   <section id="resultado" class="resultado"></section>
@@ -222,9 +238,21 @@
 </main>
 
 <script>
+  function mesesEntreFechas(fechaInicio, fechaFin) {
+    const inicio = new Date(fechaInicio);
+    const fin = new Date(fechaFin);
+
+    let meses = (fin.getFullYear() - inicio.getFullYear()) * 12;
+    meses += fin.getMonth() - inicio.getMonth();
+
+    return meses;
+  }
+
   function determinarTramite() {
     const ficha = document.getElementById('ficha').checked;
     const ticket = document.getElementById('ticket').checked;
+    const fechaBaja = document.getElementById('fechaBaja').value;
+    const edad = parseInt(document.getElementById('edad').value);
 
     const resultado = document.getElementById('resultado');
     const reafiliacion = document.getElementById('reafiliacion');
@@ -232,19 +260,34 @@
 
     reafiliacion.style.display = 'none';
     reactivacion.style.display = 'none';
-
     resultado.style.display = 'block';
 
-    if (ficha && !ticket) {
+    if (!fechaBaja || isNaN(edad)) {
+      resultado.innerHTML = `
+        <strong>Faltan datos</strong>
+        Por favor, ingresá la fecha de baja y la edad del titular.
+      `;
+      return;
+    }
+
+    const hoy = new Date().toISOString().split('T')[0];
+    const mesesBaja = mesesEntreFechas(fechaBaja, hoy);
+
+    // Regla de negocio
+    const esReactivacion =
+      edad >= 50 || mesesBaja <= 6 || ticket;
+
+    if (!esReactivacion && ficha) {
       resultado.innerHTML = `
         <strong>Trámite identificado: REAFILIACIÓN</strong>
-        Gestión comercial cargada por vendedor en Módulo Comercial.
+        Baja mayor a 6 meses y titular menor de 50 años.
+        <br>Gestión comercial (Módulo Comercial).
       `;
       reafiliacion.style.display = 'block';
     } else {
       resultado.innerHTML = `
         <strong>Trámite identificado: REACTIVACIÓN</strong>
-        Gestión administrativa que se tramita mediante ticket.
+        Gestión administrativa mediante ticket.
       `;
       reactivacion.style.display = 'block';
     }
