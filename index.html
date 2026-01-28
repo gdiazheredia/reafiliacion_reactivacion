@@ -103,9 +103,8 @@
       <select id="opcionSSS">
         <option value="">Seleccionar</option>
         <option value="parque">Parque Salud</option>
-        <option value="osjonr">OSJONR</option>
-        <option value="osmmedt">OSMMEDT</option>
-        <option value="otra">Otra obra social</option>
+        <option value="osjonr">OSJONR/OSMMEDT</option>
+        <option value="otra">Otra</option>
     </select>
     </label>
   </div>
@@ -193,7 +192,7 @@ function determinarTramite() {
 
   const mesesBaja = mesesEntreFechas(fechaBaja, new Date());
 
-  const opcionesReactivables = ["parque", "osjonr", "osmmedt"];
+  const opcionesReactivables = ["parque", "osjonr"];
 
   // ❌ NO GESTIONABLE
   if (opcion === "otra" && mesesBaja < 6) {
