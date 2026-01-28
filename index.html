@@ -196,10 +196,8 @@ function determinarTramite() {
 
   // ❌ NO GESTIONABLE
   if (opcion === "otra" && mesesBaja < 6) {
-    resultado.innerHTML = `
-      <strong>Trámite no gestionable</strong><br>
-      ⚠️ Debe cumplir permanencia mínima en la obra social actual antes de solicitar traspaso.
-    `;
+    resultado.innerHTML = 
+      "<strong>Trámite no gestionable</strong><br>";
     document.getElementById("noGestionable").style.display = "block";
     return;
   }
