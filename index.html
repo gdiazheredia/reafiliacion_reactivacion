@@ -206,30 +206,43 @@ function determinarTramite() {
   const mesesBaja = mesesEntreFechas(fechaBaja, new Date());
   const opcionesReactivables = ["parque","osjonr"];
 
-  // NO GESTIONABLE
-  if (tipo === "obligatorio" && opcion === "otra" && mesesBaja < 6) {
-    resultado.innerHTML = "<strong>Trámite no gestionable</strong>";
-    document.getElementById("noGestionable").style.display = "block";
-    return;
+  if (tipo === "obligatorio") {
+    // NO GESTIONABLE
+    if (opcion === "otra" && mesesBaja < 6) {
+      resultado.innerHTML = "<strong>Trámite no gestionable</strong>";
+      document.getElementById("noGestionable").style.display = "block";
+      return;
+    }
+
+    // REACTIVACIÓN
+    if (opcionesReactivables.includes(opcion) && (mesesBaja <= 6 || edad >= 50)) {
+      resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
+      document.getElementById("reactivacion").style.display = "block";
+      return;
+    }
+
+    // REAFILIACIÓN
+    if (opcion === "parque") {
+      resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
+      document.getElementById("reafiliacion").style.display = "block";
+      return;
+    }
+
+    // VENTA / TRASPASO
+    resultado.innerHTML = "<strong>Trámite identificado: VENTA / TRASPASO</strong>";
+    document.getElementById("afiliacion").style.display = "block";
   }
 
-  // REACTIVACIÓN
-  if (tipo === "obligatorio" && opcionesReactivables.includes(opcion) && (mesesBaja <= 6 || edad >= 50)) {
-    resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
-    document.getElementById("reactivacion").style.display = "block";
-    return;
+  if (tipo === "voluntario") {
+    // Voluntario: no se evalúa SSS
+    if (mesesBaja < 6 || edad >= 50) {
+      resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
+      document.getElementById("reactivacion").style.display = "block";
+    } else {
+      resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
+      document.getElementById("reafiliacion").style.display = "block";
+    }
   }
-
-  // REAFILIACIÓN
-  if (tipo === "obligatorio" && opcion === "parque") {
-    resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
-    document.getElementById("reafiliacion").style.display = "block";
-    return;
-  }
-
-  // VENTA / TRASPASO
-  resultado.innerHTML = "<strong>Trámite identificado: VENTA / TRASPASO</strong>";
-  document.getElementById("afiliacion").style.display = "block";
 }
 </script>
 
