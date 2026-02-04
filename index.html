@@ -1,103 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guía operativa · Identificación de trámite</title>
-  <link rel="icon" href="favicon.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guía operativa · Identificación de trámite</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Sora', sans-serif;
-      background: #f8fafc;
-      color: #1f2937;
-      padding: 16px;
-    }
+<style>
+body {
+  font-family: 'Sora', sans-serif;
+  background: #f8fafc;
+  color: #1f2937;
+  padding: 16px;
+}
+main { max-width: 900px; margin: auto; }
+h1 { color: #3D57C7; text-align:center; }
+h2 { color: #005E5C; margin-top: 24px; }
 
-    main { max-width: 900px; margin: auto; }
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
 
-    h1 { color: #3D57C7; }
-    h2 { color: #005E5C; margin-top: 24px; }
+label { display: block; margin-bottom: 12px; }
+input, select { margin-top: 6px; padding: 6px; font-family: 'Sora', sans-serif; }
 
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
+.btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px;
+  background: #3D57C7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Sora', sans-serif;
+}
 
-    label { display: block; margin-bottom: 12px; }
-    input, select { margin-top: 6px; padding: 6px; font-family: 'Sora', sans-serif; }
+.resultado {
+  display: none;
+  background: rgba(171,201,74,0.18);
+  border-left: 6px solid #ABC94A;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
 
-    .btn {
-      margin-top: 14px;
-      width: 100%;
-      padding: 10px;
-      background: #3D57C7;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: 'Sora', sans-serif;
-    }
+.alerta {
+  background: #fff7ed;
+  border-left: 5px solid #f59e0b;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+}
 
-    .resultado {
-      display: none;
-      background: rgba(171,201,74,0.18);
-      border-left: 6px solid #ABC94A;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-    }
+ul { padding-left: 18px; }
+li { margin-bottom: 6px; }
 
-    .alerta {
-      background: #fff7ed;
-      border-left: 5px solid #f59e0b;
-      padding: 12px;
-      border-radius: 8px;
-      margin: 12px 0;
-      font-size: 0.9rem;
-    }
-
-    ul { padding-left: 18px; }
-    li { margin-bottom: 6px; }
-
-    #datosBaja { display: none; }
-  </style>
+#datosBaja { display: none; }
+#opcionSSSContainer { display: none; }
+</style>
 </head>
 
 <body>
 <main>
 
-<h1 style="text-align: center;">Afiliación · Reafiliación · Reactivación</h1>
+<h1>Afiliación · Reafiliación · Reactivación</h1>
 <p>Este asistente permite determinar el procedimiento que debe aplicarse cuando un exafiliado solicita el alta</p>
 
 <section class="card">
-  <h2>Identificación del trámite</h2>
- 
+<h2>Identificación del trámite</h2>
+
+<label>
+  🟢 Estado del afiliado:
+  <select id="estado" onchange="toggleDatosBaja()">
+    <option value="">Seleccionar</option>
+    <option value="activo">Activo</option>
+    <option value="baja">Baja</option>
+  </select>
+</label>
+
+<div id="datosBaja">
   <label>
-    🟢 Estado del afiliado:
-    <select id="estado" onchange="toggleDatosBaja()">
+    🔹 Tipo de afiliado:
+    <select id="tipoAfiliado" onchange="toggleSSS()">
       <option value="">Seleccionar</option>
-      <option value="activo">Activo</option>
-      <option value="baja">Baja</option>
+      <option value="obligatorio">Obligatorio</option>
+      <option value="voluntario">Voluntario</option>
     </select>
   </label>
 
-  <div id="datosBaja">
-    <label>
-      📅 Fecha de baja:
-      <input type="date" id="fechaBaja">
-    </label>
-
-    <label>
-      🎂 Edad del titular:
-      <input type="number" id="edad" min="0">
-    </label>
-
+  <div id="opcionSSSContainer">
     <label>
       🏥 Opción SSS:
       <select id="opcionSSS">
@@ -105,11 +104,22 @@
         <option value="parque">Parque Salud</option>
         <option value="osjonr">OSJONR/OSMMEDT</option>
         <option value="otra">Otra</option>
-    </select>
+      </select>
     </label>
   </div>
 
-  <button class="btn" onclick="determinarTramite()">Identificar trámite</button>
+  <label>
+    📅 Fecha de baja:
+    <input type="date" id="fechaBaja">
+  </label>
+
+  <label>
+    🎂 Edad del titular:
+    <input type="number" id="edad" min="0">
+  </label>
+</div>
+
+<button class="btn" onclick="determinarTramite()">Identificar trámite</button>
 </section>
 
 <section id="resultado" class="resultado"></section>
@@ -121,16 +131,16 @@
 
 <section id="reafiliacion" class="card" style="display:none;">
   <div class="alerta">⚠️ Gestión comercial. La ficha debe estar cargada por vendedor en Módulo Comercial.</div>
- </section>
+</section>
 
 <section id="afiliacion" class="card" style="display:none;">
   <div class="alerta">⚠️ Gestión comercial estándar.</div>
 </section>
 
- <section id="noGestionable" class="card" style="display:none;">
+<section id="noGestionable" class="card" style="display:none;">
   <div class="alerta">⚠️ El afiliado debe cumplir permanencia mínima en la obra social actual.</div>
 </section>
-  
+
 </main>
 
 <script>
@@ -138,92 +148,87 @@ function toggleDatosBaja() {
   const estado = document.getElementById("estado").value;
   document.getElementById("datosBaja").style.display =
     estado === "baja" ? "block" : "none";
+
+  if(estado !== "baja") {
+    document.getElementById("tipoAfiliado").value = "";
+    toggleSSS();
+  }
+}
+
+function toggleSSS() {
+  const tipo = document.getElementById("tipoAfiliado").value;
+  document.getElementById("opcionSSSContainer").style.display =
+    tipo === "obligatorio" ? "block" : "none";
 }
 
 function mesesEntreFechas(inicio, fin) {
   const i = new Date(inicio);
   const f = new Date(fin);
-
-  let meses =
-    (f.getFullYear() - i.getFullYear()) * 12 +
-    (f.getMonth() - i.getMonth());
-
+  let meses = (f.getFullYear() - i.getFullYear()) * 12 + (f.getMonth() - i.getMonth());
   if (f.getDate() < i.getDate()) meses--;
   return meses;
 }
 
 function ocultarBloques() {
-  ["reactivacion", "reafiliacion", "afiliacion", "noGestionable"]
-    .forEach(id => document.getElementById(id).style.display = "none");
+  ["reactivacion","reafiliacion","afiliacion","noGestionable"].forEach(id => {
+    document.getElementById(id).style.display = "none";
+  });
 }
 
 function determinarTramite() {
   const estado = document.getElementById("estado").value;
+  const tipo = document.getElementById("tipoAfiliado").value;
+  const opcion = document.getElementById("opcionSSS").value;
+  const fechaBaja = document.getElementById("fechaBaja").value;
+  const edad = parseInt(document.getElementById("edad").value);
   const resultado = document.getElementById("resultado");
 
   ocultarBloques();
   resultado.style.display = "block";
 
   if (!estado) {
-    resultado.innerHTML =
-      "<strong>⚠️ Seleccioná el estado del afiliado.</strong>";
+    resultado.innerHTML = "<strong>⚠️ Seleccioná el estado del afiliado.</strong>";
     return;
   }
 
-  // 🟢 AFILIADO ACTIVO
+  // AFILIADO ACTIVO
   if (estado === "activo") {
-    resultado.innerHTML = `
-      <strong>Afiliado activo</strong><br>
-      ⚠️ Gestión administrativa. Crear ticket. No cargar ficha comercial.
-    `;
+    resultado.innerHTML = "<strong>Afiliado activo</strong><br>⚠️ Gestión administrativa. Crear ticket. No cargar ficha comercial.";
     return;
   }
 
-  // 🔴 BAJA
-  const fechaBaja = document.getElementById("fechaBaja").value;
-  const edad = parseInt(document.getElementById("edad").value);
-  const opcion = document.getElementById("opcionSSS").value;
-
-  if (!fechaBaja || isNaN(edad) || !opcion) {
-    resultado.innerHTML =
-      "<strong>⚠️ Completá todos los datos de la baja.</strong>";
+  // VALIDACIÓN BAJA
+  if (!tipo || (tipo === "obligatorio" && !opcion) || !fechaBaja || isNaN(edad)) {
+    resultado.innerHTML = "<strong>⚠️ Completá todos los datos de la baja.</strong>";
     return;
   }
 
   const mesesBaja = mesesEntreFechas(fechaBaja, new Date());
+  const opcionesReactivables = ["parque","osjonr"];
 
-  const opcionesReactivables = ["parque", "osjonr"];
-
-  // ❌ NO GESTIONABLE
-  if (opcion === "otra" && mesesBaja < 6) {
-    resultado.innerHTML = 
-      "<strong>Trámite no gestionable</strong><br>";
+  // NO GESTIONABLE
+  if (tipo === "obligatorio" && opcion === "otra" && mesesBaja < 6) {
+    resultado.innerHTML = "<strong>Trámite no gestionable</strong>";
     document.getElementById("noGestionable").style.display = "block";
     return;
   }
 
-  // 🔄 REACTIVACIÓN
-  if (
-    opcionesReactivables.includes(opcion) &&
-    (mesesBaja <= 6 || edad >= 50)
-  ) {
-    resultado.innerHTML =
-      "<strong>Trámite identificado: REACTIVACIÓN</strong>";
+  // REACTIVACIÓN
+  if (tipo === "obligatorio" && opcionesReactivables.includes(opcion) && (mesesBaja <= 6 || edad >= 50)) {
+    resultado.innerHTML = "<strong>Trámite identificado: REACTIVACIÓN</strong>";
     document.getElementById("reactivacion").style.display = "block";
     return;
   }
 
-  // 🔁 REAFILIACIÓN
-  if (opcion === "parque") {
-    resultado.innerHTML =
-      "<strong>Trámite identificado: REAFILIACIÓN</strong>";
+  // REAFILIACIÓN
+  if (tipo === "obligatorio" && opcion === "parque") {
+    resultado.innerHTML = "<strong>Trámite identificado: REAFILIACIÓN</strong>";
     document.getElementById("reafiliacion").style.display = "block";
     return;
   }
 
-  // 🟣 VENTA / TRASPASO
-  resultado.innerHTML =
-    "<strong>Trámite identificado: VENTA / TRASPASO</strong>";
+  // VENTA / TRASPASO
+  resultado.innerHTML = "<strong>Trámite identificado: VENTA / TRASPASO</strong>";
   document.getElementById("afiliacion").style.display = "block";
 }
 </script>
